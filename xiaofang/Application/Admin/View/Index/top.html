@@ -1,0 +1,75 @@
+<include file="Public:header" />
+
+    <style type="text/css">
+        #top{margin-top: 20px;}
+        #img{float: left;margin-left: 20px;}
+        #my_nav{float: left;margin-left: 100px;}
+        a,a:focus{
+        bblr:expression(this.onFocus=this.blur());/*IE使用*/
+        outline:none;/*FF使用*/
+        } /*去除a标签带来的虚框*/
+        
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#my_nav li").click(
+                    function(){
+                        $(this).addClass('active');
+                        $(this).siblings('li').removeClass('active'); //// 删除其他兄弟元素的样式
+                    });
+        });
+    </script>
+
+    </head>
+     
+    <body>
+        <div id="top">
+            <div id="img"><img src="__PUBLIC__/img/logo.png" width="100%" height="70%">
+                
+            </div>
+            <div><h4 style="display: block;width: 300px;float: left;padding-left: 20px;">行车消防信息</br>　　　监测预警系统</h4></div>
+            <div id="my_nav">
+                <ul class="nav nav-tabs">
+                    <switch name="condition">
+                    
+                        <case value="1">
+                        
+                            <li role="presentation" class="active"><a href="{:U('Fireadmin/admin_list')}" target="right_view">用户管理</a></li>
+                            <li role="presentation"><a href="{:U('Firedepart/depart_list')}" target="right_view">车间(所)管理</a></li>
+                            <li role="presentation"><a href="{:U('Firemessage/message_list')}" target="right_view">申请通知</a></li>
+                            <li role="presentation"><a href="{:U('Fireextinguisher/add_extinguisher')}" target="right_view">添加灭火器</a></li>
+                            
+                        </case>
+                        <case value="2">
+                            <li role="presentation"><a href="{:U('Fireextinguisher/apply_notice')}" target="right_view">申请通知</a></li>
+                            <li role="presentation"><a href="{:U('Fireextinguisher/add_stock')}" target="right_view">信息录入</a></li>
+                            <li role="presentation"><a href="{:U('Fireextinguisher/add_extinguisher')}" target="right_view">添加灭火器</a></li>
+                            <li role="presentation"><a href="{:U('Firestock/stock_manage')}" target="right_view">库存管理</a></li>
+                            
+                            
+                        </case>
+                        <case value="3">
+                            <li role="presentation"><a href="{:U('Firemessage/apply_list')}" target="right_view">申请结果</a></li>
+                            <li role="presentation"><a href="{:U('Firegroup/group_list')}" target="right_view">班组管理</a></li>
+                            <li role="presentation"><a href="{:U('Fireextinguisher/add_extinguisher')}" target="right_view">添加灭火器</a></li>
+                            
+                        </case>
+                        
+                        <case value="4">
+                            <li role="presentation"><a href="{:U('Fireextinguisher/apply_result')}" target="right_view">申请结果</a></li>
+                            <li role="presentation"><a href="{:U('Fireextinguisher/add_extinguisher')}" target="right_view">添加灭火器</a></li>
+                            
+                            
+                        </case>
+
+                    </switch>
+
+                    <li role="presentation"><a href="{:U('Firelogin/logout')}" target="_parent">安全退出</a></li>
+                    <li role="presentation"><a href="javascript:;" target="_parent"><strong>欢迎你!　{$uname}</strong></a></li>
+                            
+                </ul>
+            </div>
+
+        </div>
+    </body>
+</html>

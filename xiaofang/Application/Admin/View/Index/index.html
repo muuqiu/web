@@ -1,0 +1,40 @@
+<include file="Public:header" />
+	<title>行车消防信息监测预警系统</title>
+	
+	
+	<style>
+		/*.right{
+			width: 230px;
+			height:100%;
+			background-color: rgb(41, 56, 70);
+		}
+		.panel-default .panel-heading{
+			background-color: rgb(41, 56, 70);
+			color: #fff;
+			border: 0;
+			margin: 0;
+		}*/
+		.nav a{
+			color: #a7b1c2;
+			outline-style:none;
+			background-color: transparent !important;
+		}
+		
+		.nav-tabs li a:hover{
+			background-color: #233646;
+			border-color: #233646;
+			color: #fff;
+		}
+	
+	</style>
+	
+</head>
+     <frameset rows='100px,*' frameborder=0 bordercolor='green'>
+        <frame src='__URL__/top' name='top' scrolling="no" width="100%" height="100%"/>
+
+        <frameset cols='210px,*' frameborder=0>
+            <frame src='__URL__/left' name='left_view' id="left_f" scrolling="no"/>
+            <frame src='__URL__/right' name='right_view' scrolling="auto"/>
+        </frameset>
+    </frameset>
+</html>

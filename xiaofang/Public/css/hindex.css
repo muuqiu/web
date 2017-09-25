@@ -1,0 +1,130 @@
+body{
+	font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+	background-image: url(../img/bg.jpg);
+	background-attachment: fixed;
+}
+
+.content_item{
+	background-color:transparent;   /*transparent 为透明  显示其下面的那个颜色 背景透明*/
+	box-shadow: 0 0 10px 7px rgba(218, 218, 218, 0.9);
+	margin: 20px 0;
+	padding:10px 10px; 
+}
+.row_title{
+	margin: 20px 0;
+
+}
+.row_title a{
+	font-size: 20px;
+	margin-left: 10px;
+
+
+	
+}
+.content_item #a_btn{
+	float: right;
+	margin-right: 10px;
+}
+.row_text{
+	font-size: 16px;
+}
+.row_bottom{
+	margin-top:14px;
+}
+.row_bottom span{
+	font-size: 14px;
+}
+a{
+	color: #333;
+}
+a:focus, a:hover {
+	color: #449d44;
+	text-decoration: none;
+}
+#navbar-collapse a{
+	font-size: 19px;
+	font-weight:3px;
+	color: black;
+
+
+}
+#navbar-collapse a:hover{
+	color: #449d44;
+}
+.navbar{
+	height: 70px;
+	opacity: 0.8;
+	background-color: #fff;
+	filter: alpha(opacity=80);
+}
+.navbar-header{
+	padding-top: 10px;
+}
+.navbar-nav{
+	padding-top: 10px;
+}
+.navbar{
+	border-bottom:2px solid #449d44;
+}
+.navbar li{
+	margin-left: 20px;
+}
+.dropdown_nav li{
+	margin-left: 0;
+}
+/*.container{
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+#main{
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+} */
+/*.content_item{
+	opacity: 0;
+	filter: alpha(opacity=50);
+	background-color: #fff;
+}*/
+#hr {
+    background: #ddd;
+    color: #ddd;
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+    border: none;
+   
+    box-sizing: content-box;
+}
+.myLabel span{
+	display: inline-block;
+	/*height: 20px;*/
+	margin-bottom: 8px;
+	font-size: 18px;
+}
+
+.list-inline{
+	
+	text-align: center;
+
+
+}
+.list-inline a{
+	color: #666767;
+	font-size: 14px;
+}
+.list-inline li{
+	margin-left: 35px;
+	font-size: 14px;
+	color: #666767;
+}
+.list-inline li p{
+
+}
+.list-inline a:hover{
+	color:#449d44;
+}
+.label{
+	font-size:15px;
+}

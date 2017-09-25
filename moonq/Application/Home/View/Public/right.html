@@ -1,0 +1,224 @@
+<style>
+	#input{
+		margin-bottom: 10px;
+	}
+</style>
+<div class="col-lg-4 col-md-4 hidden-xs hidden-sm">
+					
+	<div id="right" style="margin-top:17px;">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+					<h4><span class="glyphicon glyphicon-user"></span>　用户登录</h4>
+					
+					<form action="" class="form-horizontal">
+						<div class="form-group">
+							<label for="" class="col-md-4 col-sm-4 control-label">用户名:</label>
+							<div class="col-md-8 col-sm-8">
+								<input class="form-control" type="text" placeholder="用户名">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-md-4 col-sm-4 control-label">密　码:</label>
+							<div class="col-md-8 col-sm-8">
+								<input class="form-control" type="text" placeholder="密码">
+							</div>
+						</div>
+						<div class="button-group" style="margin-left:100px;">
+							<button class="btn btn-info" disabled="disabled" type="submit" id="denglu">登　录</button>
+							<button class="btn btn-danger" disabled="disabled" id="q_denglu">QQ登录</button>
+						</div>
+					
+					</form>
+					
+				</div>
+
+
+			</div>
+			<hr id="hr">
+
+				
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<h4><span class="glyphicon glyphicon-pencil">　我的标签</span></h4>
+
+					<div class="myLabel">
+						<span class="label label-default">CTF</span>
+							<span class="label label-primary">WEB安全</span>
+							<span class="label label-warning">KALI Linux</span>
+							<span class="label label-primary">JaveScript</span>
+						
+							<span class="label label-info">文艺</span>
+							
+							<span class="label label-danger">计算机</span>
+							<span class="label label-success">ThinkPHP</span>
+							<span class="label label-warning">Linux</span>
+							<span class="label label-success">Jquery</span>
+							<span class="label label-warning">bootstrap</span>
+							<span class="label label-success">mysql</span>
+
+							
+					</div>
+
+				</div>
+
+			</div>
+
+			<hr id="hr">
+			<!-- 查出文章 -->
+<php>$right_article=M('article')->order('count desc')->field('photo,title,id,count')->limit(4)->select();</php>	
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="article_title" style="padding:10px;height:55px;background:#449d44;color:#fff">
+						<h4>点击量排行</h4>
+					</div>
+
+					<div class="artic_main" style="padding:10px;background:#fff;height:500px;">
+						<volist name='right_article' id='v'>
+							<div class="row">
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<img src="{$v['photo']}" class="img-responsive" alt="">
+								</div>
+								<div class="col-md-7 col-sm-7 col-xs-7">
+									<p style="font-size:15px;line-height:1.5;margin-top:0;">{$v["title"]}</p>
+									<a class="btn btn-danger btn-xs" href="{:U('Index/article_detail',array('id'=>$v['id']))}" style="float:right;display:block;">查看详情</a>
+									
+								</div>
+							</div>
+							<hr id="hr">
+						</volist>
+						
+					</div>
+					
+					
+				</div>
+						
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="title" style="background:rgb(91, 192, 222);height:55px;padding:10px;color:#fff"><h4>友链申请</h4></div>
+							
+							<div class="row">
+								
+								<div id="form" style="margin:0px 15px;background:#fff;padding:10px;">
+									<form action="" class="form form-horizontal">
+										<div class="input-group" id="input">
+										  	<span class="input-group-addon">域名</span>
+										  	<input type="text" class="form-control" placeholder="输入域名!" id="link_url">
+										</div>
+										<div class="input-group" id="input">
+										  	<span class="input-group-addon">名称</span>
+										  	<input type="text" class="form-control" placeholder="输入网站名称!" id="link_name">
+										</div>
+										<div class="input-group" id="input">
+											<textarea name="content" id="link_content" rows="5" cols="50" class="form-control" placeholder="简单介绍一下吧..."></textarea>
+										  	
+										</div>
+										
+										<div class="input-group" id="input" style="width:100%">
+											<center><button class="btn btn-info form-control" style="width:100%;display:block;font-size:14px;" id="add_link" type="button">提 交</button>
+										  	</center>
+										</div>
+									</form>
+								</div>
+								
+								</div>
+								
+							</div>
+			</div>
+			<hr>
+			<div class="row">
+							<!-- 查出链接 -->
+<php>$link=M('link')->order('orderby')->field('name,url')->select();</php>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<h4><span class="glyphicon glyphicon-heart">　友情链接</span></h4>
+
+					<div class="myLink">
+						<volist name="link" id='link'>
+							<a href="{$link['url']}" target="_blank" class="btn btn-success" style="display:inline-block;margin:10px 5px; ">{$link["name"]}</a>
+						</volist>
+					
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/layer.js"></script>         <!-- 弹窗js -->
+<script>
+	$(function(){
+		//设置弹窗位置  采用layer.js弹窗方案
+		layer.config({
+		  // area: '500px',
+		  offset: '150',
+		});
+		$('#add_link').click(function(){
+			$.ajax({
+			type:'post',
+			url:"{:U('Link/do_addLink')}",
+			beforeSend:checkForm,
+			data:{
+				
+				name:$('#link_name').val(),
+				url:$('#link_url').val(),
+				content:$('#link_content').val(),
+			},
+			dataType:'json',
+			success:complete,
+			});
+			return false;
+
+			function checkForm(){
+				if (''==$.trim($('#link_name').val())) {
+
+					layer.alert('网站名不能为空',{icon:2},function(index){
+						layer.close(index);
+						$('#link_name').focus;
+					})
+					return false;
+				}
+				if (''==$.trim($('#link_url').val())) {
+					layer.alert('域名不能为空',{icon:2},function(index){
+						layer.close(index);
+						$('#link_url').focus;
+					})
+					return false;
+				}
+				if (''==$.trim($('#link_content').val())) {
+					layer.alert('内容不能为空!',{icon:2},function(index){
+						layer.close(index);
+						$('#link_content').focus;
+					})
+					return false;
+				}
+				
+			}
+			function complete(data){
+				//alert(data);
+				if (data.status==1) {
+					
+					//window.localtion.href=data.url;
+					layer.alert(data.info,{icon:6},function(index){
+
+						layer.close(index);
+						
+					
+					});
+				}else{
+					layer.alert(data.info,{icon:2},function(index){
+
+						layer.close(index);
+						
+					});
+					return false;
+				}
+			}
+		});
+	});
+</script>
+
+	

@@ -1,0 +1,77 @@
+body{
+	font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+	background-image: url(../img/bg.jpg);
+	background-attachment: fixed;
+}
+
+.content_item{
+	background-color:transparent;   /*transparent 为透明  显示其下面的那个颜色 背景透明*/
+	box-shadow: 0 0 10px 7px rgba(218, 218, 218, 0.9);
+	margin: 20px 0;
+	padding:10px 10px; 
+}
+.row_title{
+	margin: 20px 0;
+
+}
+.row_title a{
+	font-size: 20px;
+	margin-left: 10px;
+
+
+	
+}
+
+.row_text{
+	font-size: 16px;
+}
+.row_bottom{
+	margin-top:14px;
+}
+.row_bottom span{
+	font-size: 14px;
+}
+a{
+	color: #333;
+}
+a:focus, a:hover {
+	color: #449d44;
+	text-decoration: none;
+}
+
+/*.container{
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+#main{
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+} */
+/*.content_item{
+	opacity: 0;
+	filter: alpha(opacity=50);
+	background-color: #fff;
+}*/
+#hr {
+    background: #ddd;
+    color: #ddd;
+    clear: both;
+    float: none;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0;
+    border: none;
+   
+    box-sizing: content-box;
+}
+.myLabel span{
+	display: inline-block;
+	/*height: 20px;*/
+	margin-bottom: 8px;
+	font-size: 18px;
+}
+
+
+.label{
+	font-size:15px;
+}

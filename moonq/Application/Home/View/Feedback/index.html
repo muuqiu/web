@@ -1,0 +1,172 @@
+
+
+<include file="Public:header" />
+<style>
+	#input{
+		margin-bottom:10px;
+		width: 100%;
+	}
+</style>
+	<div id="main">
+		<div class="container">
+			<div class="visible-xs" style="height:48px"></div>
+			<div class="row">
+				<div class="col-md-8">
+					<div class="container-fluid">
+						<volist name="feed" id="vo">
+							<div class="content_item">
+								<div class="row">
+									<div class="media" id="feedback">
+									  	<a class="media-left" href="#">
+									    	<img src="<?php echo '__PUBLIC__/userphoto/'.rand(0,100).'.jpg'?>" alt="" class="img-circle" id="feedback_img">
+									  	</a>
+									  	<div class="media-body">
+									    	<h5 class="media-heading" id="feedback_time"><span class="glyphicon glyphicon-user"> {$vo.username}</span>　<span class=" glyphicon glyphicon-envelope"> {$vo.add_time|date="Y-m-d H:m:s",###}</span></h5>
+									    	<p id="feedback_p">{$vo.content}</p>
+									    	<hr id="hr">
+									    	<!-- 嵌套的媒体对象 -->
+									    	<eq name="vo['flag']" value="1">
+										    	<div class="media">
+												  	<a class="media-left" href="#">
+												    	<img src="{$vo['c_photo']}" alt="" class="img-circle"  id="feedback_img">
+												  	</a>
+												  	<div class="media-body">
+												    	<h5 class="media-heading" id="feedback_time"><span class="glyphicon glyphicon-user">　{$vo.c_name}</span> <span class=" glyphicon glyphicon-envelope"> {$vo.c_time|date="Y-m-d H:m:s",###}</span></h5>
+												    	<p id="feedback_p">{$vo.c_content}</p>
+												    </div>
+												</div>
+											</eq>
+									  	</div>
+									</div>
+									
+									
+								</div>
+								
+							</div>
+						
+						</volist>
+						<hr id="hr">
+						<div class="row">
+							<div class="pages">
+								<center>{$page}</center>								
+							</div>							
+						</div>	
+						<hr id="hr">
+						<div class="content_item" style="border:1px solid rgb(91, 192, 222);padding:0">
+							
+							<div class="title" style="background:rgb(91, 192, 222);height:50px;padding:10px;color:#fff"><h4 style="margin-top:0">留 言</h4></div>
+							
+							<div class="row">
+								
+								<div id="form" style="padding:40px 40px 10px 40px;">
+									<form action="" class="form form-horizontal">
+										<div class="input-group" id="input">
+										  	<span class="input-group-addon">昵称</span>
+										  	<input type="text" class="form-control" placeholder="输入昵称!" id="username">
+										</div>
+										<div class="input-group" id="input">
+										  	<span class="input-group-addon">邮箱</span>
+										  	<input type="text" class="form-control" placeholder="输入邮箱!" id="email">
+										</div>
+										<div class="input-group" id="input">
+											<textarea name="" id="content" rows="5" cols="100" class="form-control" placeholder="说点什么呢..."></textarea>
+										  	
+										</div>
+										
+										<div class="input-group" id="input">
+											<center><button class="btn btn-info form-control" style="width:100%;display:block;font-size:20px;height:40px;" id="save_btn" type="button">提 交</button>
+										  	</center>
+										</div>
+									</form>
+								</div>
+								
+								
+								
+							</div>
+							
+						</div>
+							
+						
+											
+					</div>
+
+				</div>
+				<include file="Public:right" />		
+			</div>			
+		</div>
+		<include file="Public:footer" />
+	</div>
+<script src="__PUBLIC__/js/layer.js"></script>         <!-- 弹窗js -->
+<script>
+	$(function(){
+		//设置弹窗位置  采用layer.js弹窗方案
+		layer.config({
+		  // area: '500px',
+		  offset: '150',
+		});
+		$('#save_btn').click(function(){
+			$.ajax({
+			type:'post',
+			url:"{:U('do_addFeed')}",
+			beforeSend:checkForm,
+			data:{
+				
+				username:$('#username').val(),
+				email:$('#email').val(),
+				content:$('#content').val(),
+			},
+			dataType:'json',
+			success:complete,
+			});
+			return false;
+
+			function checkForm(){
+				if (''==$.trim($('#username').val())) {
+
+					layer.alert('昵称不能为空',{icon:2},function(index){
+						layer.close(index);
+						$('#username').focus;
+					})
+					return false;
+				}
+				if (''==$.trim($('#email').val())) {
+					layer.alert('邮箱不能为空',{icon:2},function(index){
+						layer.close(index);
+						$('#email').focus;
+					})
+					return false;
+				}
+				if (''==$.trim($('#content').val())) {
+					layer.alert('内容不能为空!',{icon:2},function(index){
+						layer.close(index);
+						$('#content').focus;
+					})
+					return false;
+				}
+				
+			}
+			function complete(data){
+				//alert(data);
+				if (data.status==1) {
+					
+					//window.localtion.href=data.url;
+					layer.alert(data.info,{icon:6},function(index){
+
+						layer.close(index);
+						window.location.href=data.url;
+					
+					});
+				}else{
+					layer.alert(data.info,{icon:2},function(index){
+
+						layer.close(index);
+						
+					});
+					return false;
+				}
+			}
+		});
+	});
+</script>
+</body>
+</html>

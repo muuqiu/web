@@ -1,0 +1,182 @@
+<include file="Public:header" />
+<script src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+	<script type="text/javascript">
+		//ajax提交form表单
+		$(function(){
+			$('#save_btn').click(function(){
+				//alert("aaa");
+				$.ajax({
+					type:"post",
+					url: "{:U('add_banner')}",
+					
+					data: $('#add_banner').serialize(),     //发送的数据, json格式
+					dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+					success:complete,
+				});
+				return false;            //阻止表单自动提交对象
+				
+
+				// 返回成功后执行的操作
+				function complete(data){
+					
+					if (data.status==1) {
+						//alert(data.url);
+						//window.localtion.href=data.url;
+						layer.alert(data.info,{icon:6},function(index){
+
+							layer.close(index);
+							window.location.href=data.url;
+						
+						});
+					}else{
+						layer.alert(data.info,{icon:2},function(index){
+
+							layer.close(index);
+							
+						});
+						return false;
+					}
+				}
+
+			});
+		});
+	
+	</script>
+	
+</head>
+<body>
+<!-- 左边导航 -->
+<include file="Public:nav" />
+
+<div id="right">
+<!-- 右边顶部 -->
+	<include file="Public:right_top" />
+
+	<div class="input-group" id="add_btn">
+		<button class="btn btn-success" type="button" data-toggle="modal" data-target="#myModal">添加轮播</button>
+	</div>
+	<div id="content">
+		<form action="">
+			<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　轮播列表</p>
+			<hr>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+					  <th width="6%">ID</th>
+					  <th width="15%">图片</th>
+					  <th width="10%">状态</th>
+					  
+					  <th width="18%">添加时间</th>
+					  
+					  <th width="15%">操作</th>
+				  	</tr>
+				</thead>
+				<tbody>
+					<volist name='list' id='vo'>
+						<tr>
+					  		<td>{$vo.id}</td>
+					  		<td><img src="{$vo.img}" alt="" width="200" height="80"></td>
+					  		
+					  		<td><if condition='$vo.status eq 1'><span class="label label-info">显示</span><else /><span class="label lable-danger">关闭</span></if></td>
+					  		<td>{$vo.addtime|date='Y年m月d日 H:i:s',###}</td>
+					  		
+					  		<td>
+					  			
+								<a href="javascript:;" onclick="del_banner({$vo.id});" class="btn btn-danger">删除</a>
+							</td>
+				  		</tr>
+					</volist>
+					
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+	
+
+<!-- 模态框  用于点击添加按钮显示在页头 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- 关闭按钮 -->
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="ture">&times;</span></button>
+				<h3 class="modal-title">添加轮播</h3>
+			</div>
+			<div class="modal-body">
+				<!-- 水平排列的表单 将所有控件放在一个表单组里面 得到更好的排列 -->
+				<form action="" class="form-horizontal" name="add_banner" id="add_banner" method="post">
+					
+					<div class="form-group">
+						<label class="col-md-3 control-label">状&nbsp;态</label>
+						<div class="col-md-6">
+							<div class="radio">	                        			
+                    			<input type="radio" name='status' value="0" />隐藏　 　
+                    			<input type="radio" name='status' value="1" checked='checked'/>显示                       			
+                    		</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">轮播图片</label>
+						<div class="col-md-7">
+							<div style="width: 200px; height: 110px; float: left;">
+								<input type="hidden" name="photo" value="" id="data_photo" />
+								<input id="photo_file" name="photo_file" type="file" multiple="true" value="" />
+							</div>
+							<div>
+								<img id="upload_img" src="__" onerror="this.src='__PUBLIC__/img/no_img.jpg'" width="100" height="50"/>
+							</div>
+						</div>
+						
+					</div>
+
+				
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-success" type="button" id="save_btn">保存内容</button>
+					<button class="btn btn-info" data-dismiss="modal" type="button">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	function del_banner(id){
+		layer.confirm('删除后无法恢复，你确定要删除吗？', {icon: 3}, function(index){
+	    layer.close(index);
+	    window.location.href="__URL__/del_banner/id/"+id+"";
+	});
+}
+</script>
+<script>
+	$(function(){
+				// 缩略图片上传代码
+		$('#photo_file').uploadify({
+			'swf':'__PUBLIC__/js/uploadify/uploadify.swf',
+			'uploader':'{:U("Upload/upload")}',           //处理上传的php文件
+			'cancelImg':'__PUBLIC__/js/uploadify/uploadify-cancel.png',   //背景按钮
+			'buttonText':'上传图片',
+			'height':'35',
+			'auto':true,         //是否自动上传
+			'fileTypeExts':'*.gif;*.jpg;*.png',   //允许上传的类型
+			'queueSizeLimit':1,   //等待队列大小  对多可一次传多少
+			'onUploadSuccess':function(file,data,response){         //成功后执行回调函数
+				//alert(data);
+				$("#data_photo").val('__ROOT__/Upload'+data);      //data里是上传文件地址(不完整)
+				$("#upload_img").attr('src','__ROOT__/Upload'+data).show();
+
+			}
+
+		});
+
+	
+	});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta Keywords="{$atricle['title']}博客、木秋、thinkphp、web安全," content="木秋博客、网络安全、thinkphp、js、jq">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<title><empty name="article['title']">木秋博客<else />{$article['title']}</empty></title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/style.css"><!-- 基础样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/css/hindex.css"><!-- home首页样式 -->
+	<link rel="stylesheet" href="__PUBLIC__/css/pagecss.css">  <!-- 分页样式 -->
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// 设置自动轮播
+			$('#banner').carousel({
+				interval:5000,
+			});
+			$('#banner_img').children("div").eq(0).addClass('active');  //给第一个图片添加active类
+			$('#ol').children("li").eq(0).addClass('active');  //给第一个指示器添加active类
+		});
+	</script>
+</head>
+<php>
+	$cate=M('article_category')->order('sort asc')->select();
+	$banner_img=M('Banner')->where('status=1')->select();
+</php>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand" style="margin:0;padding:0;"><img src="__PUBLIC__/img/logo.png" alt=""></a>
+				<!-- 响应式切换导航布局按钮 -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">切换导航</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+				
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav navbar-left" id="nav_ul">
+					<li><a href="{:U('Index/index')}">首页</a></li>
+					<li class="dropdown">
+						
+						<a data-toggle="dropdown" href="#">
+							分类
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-left dropdown_nav">
+							<volist name="cate" id="vo">
+								<li><a href="{:U('Index/index',array('id'=>$vo['id']))}">{$vo.title}</a></li>
+								
+							</volist>
+							
+						</ul>
+					</li>	
+					<li><a href="{:U('Said/index')}">说说</a></li>
+					<li><a href="{:U('Feedback/index')}">留言板</a></li>
+					<li><a href="{:U('About/index')}">关于我</a></li>
+					<li>
+						<form action="{:U('Index/search')}" class="navbar-form navbar-right" method="post">
+						<div class="input-group hidden-xs hidden-sm" id="search">
+							<input type="text" name="s_content" class="form-control" placeholder="输入文章关键字查询..." style="border:1px solid green;">
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+						</form>
+					</li>
+		
+				</ul>
+			</div>
+		
+		</div>		
+	
+	</nav>
+
+	<div class="carousel slide hidden-xs" id="banner" style="margin-top:70px;">
+		<!-- 轮播图指示灯 -->
+		<ol class="carousel-indicators" id="ol">
+			<volist name="banner_img" id="vb" key="k">
+				<li data-target="#banner" data-slide-to="{$k-1}" style="margin-left:10px;"></li>
+				
+			</volist>
+
+		</ol>
+		<!-- 轮播图内容 -->
+		<div class="carousel-inner" id="banner_img">
+			
+			<volist name="banner_img" id="vb">
+				<div class="item">
+					<img src="{$vb.img}" alt="">
+				</div>
+			</volist>
+			
+		</div>
+
+		<!-- 轮播图左右按钮 -->
+		<a href="#banner" data-slide="prev" class="carousel-control left">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a href="#banner" data-slide="next" class="carousel-control right">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>
+

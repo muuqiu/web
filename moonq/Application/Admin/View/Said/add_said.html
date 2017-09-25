@@ -1,0 +1,150 @@
+<include file="Public:header"/>
+<!-- 引入图片上传插件 -->
+	<script src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+	
+</head>
+<body>
+	<include file="Public:nav"/>
+
+	<div id="right">
+		<include file="Public:right_top" />
+		<div id="content">
+			<form action="{:U('do_addSaid')}" class="form-horizontal" id="do_addSaid" method="post" enctype=multipart/form-data>
+				<p style="font-size:15px;"><span class="glyphicon glyphicon-edit"></span>　添加说说</p>
+				<hr>
+				<div class="form-group">
+						<label for="" class="col-md-2 control-label">内容</label>
+						<div class="col-md-7">
+						<!-- 加载编辑器的容器 -->
+							<input type="hidden" name="s_content" value="" id="s_content">
+							<textarea id="editor" name="editor" form="do_addSaid"></textarea>
+						</div>
+						
+				</div>
+				<hr>
+				<div class="form-group">
+					<label for="" class="col-md-2 control-label">是否显示</label>
+					<div class="col-md-7">
+						<input type="radio" value="0"  name="s_view">隐藏
+						<input type="radio" value="1" name="s_view" checked="checked">显示
+					</div>
+				</div>
+				<hr>
+				<div class="form-group">
+					<label for="" class="col-md-2 control-label">作者</label>
+					<div class="col-md-7">
+						<input type="text" value="木秋" name="s_writer" class="form-control" id="s_writer">
+					</div>
+				</div>
+				
+				<hr>
+				<div class="form-group">
+					<label for="" class="col-md-2 control-label"></label>
+					<div class="col-md-7">
+						<button class="btn btn-success" id="btn_save">保存内容</button>
+						<a class="btn btn-danger" href="{:U('said_list')}">取消</a>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+		
+		
+		<script>
+			$(function(){
+				
+				//富文本编辑器js代码
+
+				window.UEDITOR_HOME_URL="__PUBLIC__/Common/Ueditor/";         //编辑器源文件地址
+				window.UEDITOR_CONFIG.initialFrameWidth=950;           //设置编辑器宽高
+				window.UEDITOR_CONFIG.initialFrameHeight=400;
+				window.UEDITOR_CONFIG.autoHeightEnabled=false;
+				
+
+
+				UE.getEditor('editor',{
+					toolbars:[['fullscreen', 'source', '|', 'undo', 'redo', '|','bold', 'italic', 'underline','removeformat', 'formatmatch', 'pasteplain', '|', 'forecolor', 'fontfamily', 'fontsize', '|', 'link', 'unlink','simpleupload','emotion','attachment']],
+				});           //实例化化编辑器
+
+				
+				
+			});
+
+		</script>
+
+		<script>
+			$(function(){
+				$('#btn_save').click(function(){
+					$('#s_content').val(UE.getEditor('editor').getContent());
+					//alert($('#s_content').val());
+					$.ajax({
+					type:'post',
+					url:"{:U('do_addSaid')}",
+					beforeSend:checkForm,
+					data:{
+						s_content:$('#s_content').val(),
+						
+						s_writer:$('#s_writer').val(),
+						s_view:$("input[name='s_view']:checked").val(),
+					
+					},
+					dataType:'json',
+
+					success:complete,
+					});
+					return false;
+
+					function checkForm(){
+						if (''==$.trim($('#s_content').val())) {
+
+							layer.alert('内容不能为空',{icon:6},function(index){
+								layer.close(index);
+								$('#s_content').focus;
+							})
+							return false;
+						}
+						
+						if (''==$.trim($('#s_writer').val())) {
+							layer.alert('作者不能为空',{icon:6},function(index){
+								layer.close(index);
+								$('#s_writer').focus;
+							})
+							return false;
+						}
+						
+						
+					}
+					function complete(data){
+						//alert(data);
+						if (data.status==1) {
+							
+							//window.localtion.href=data.url;
+							layer.alert(data.info,{icon:6},function(index){
+
+								layer.close(index);
+								window.location.href=data.url;
+							
+							});
+						}else{
+							layer.alert(data.info,{icon:2},function(index){
+
+								layer.close(index);
+								
+							});
+							return false;
+						}
+					}
+				});
+			});
+		</script>
+		<script src="__PUBLIC__/Common/Ueditor/ueditor.config.js"></script>
+		<script src="__PUBLIC__/Common/Ueditor/ueditor.all.min.js"></script>
+		<!-- 注意 必须先要引用第一个js文件 不然会报错!! -->
+		
+		
+
+</body>
+	
+

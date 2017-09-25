@@ -1,0 +1,100 @@
+<include file="Public:header" /> 
+<div class="container">
+	<h1>灭火器信息录入</h1>
+	<form action="{:U('doAccept')}" method="post" role="form">
+
+		<div class="form-group">
+		<label for="qs"><kbd>电子标签</kbd></label>
+			<input type="text" name="qs" id="qs" class="form-control">
+		</div>
+		<div class="form-group">
+		<label for="depart"><kbd>科室</kbd></label>
+			<input type="text" name="depart" id="depart" class="form-control">
+
+		<div class="form-group">
+		<label for="workshop"><kbd>车间</kbd></label>
+		<input type="text" name="workshop" id="workshop" class="form-control">
+		</div>
+
+		<div class="form-group">
+		<label for="group"><kbd>班组</kbd></label>
+		<input type="text" name="group" id="group" class="form-control">
+		</div>
+
+		<div class="form-group">
+	<label for="res"><kbd>责任人</kbd></label>
+		<input type="text" name="res" id="res" class="form-control">
+		</div>
+
+		<div class="form-group">
+	<label for="varity"><kbd>种类</kbd></label>
+		<input type="text"  name="varity" id="varity" class="form-control">
+		<span class="help-block">干粉、水型、二氧化碳、1211</span>
+		</div>
+
+		<div class="form-group">
+		
+	<label for="type"><kbd>类型</kbd></label>
+		<input type="text" name="type" id="type" class="form-control"   />
+		<span class="help-block">1kg、2kg、3kg ....</span>
+		</div>
+
+		<div class="form-group">
+	<label for="pro_date"><kbd>出厂日期</kbd></label>
+		<input type="text" name="pro_date" id="pro_date" class="form-control" onclick="laydate()">
+		<span class="help-block">时间格式：xxxx-xx-xx</span>
+		</div>
+
+		<div class="form-group">
+	<label for="during_time"><kbd>保质期</kbd></label>
+		<input type="text" name="during_time" id="during_time" class="form-control">
+		<span class="help-block">单位：年</span>
+		</div>
+
+		<div class="form-group">
+	<label for="place"><kbd>配置场地</kbd></label>
+		<input type="text" name="place" id="place" class="form-control">
+		</div>
+
+		<div class="form-group">
+	<label for="stock"><kbd>库存</kbd></label>
+		<input type="text" name="stock" id="stock" class="form-control">
+		</div>
+
+	<input type="submit" value="录入" class="btn btn-primary btn-block"  />
+	
+	</form>
+
+
+</div>
+</div>
+<script>
+	$("#nav2 #nav1 #nav3").removeClass('active');
+	$("#nav3").addClass('active');
+	$("delete").each(function() {
+		$(this).click(function(event) {
+			var vid=$(this).attr("vid");
+			window.location.href="__URL__"+"/del/id/"+vid;
+		});
+	});
+	$("edit").each(function() {
+		$(this).click(function(event) {
+			var vid=$(this).attr("vid");
+			console.log(vid);
+			window.location.href="__URL__"+"/edit/id/"+vid;
+		});
+	});
+	function check(){
+				var type=$(this).val();
+				if (!isNaN(type)){
+					console.log('正确');
+				}else{
+					alert('仅能输入数字！');
+					$(this).val('');
+				}				
+	}
+
+			$('#type').on('blur',check);
+			$('#during_time').on('blur',check);
+
+</script>

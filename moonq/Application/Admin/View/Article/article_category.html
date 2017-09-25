@@ -1,0 +1,191 @@
+<include file="Public:header"/>
+
+<script type="text/javascript">
+	$(function(){
+		$('#save_btn').click(function(){
+			//alert("aaa");
+			$.ajax({
+				type:"post",
+				url: "{:U('do_addCategory')}",
+				beforeSend:checkForm,
+				data: $('#addCategory').serialize(),     //发送的数据, json格式
+				dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+				success:complete,
+			});
+			return false;            //阻止表单自动提交对象
+			
+			function checkForm(){
+				if ('' ==$.trim($('#title').val())) {             //.trim函数用于去掉字符串首尾的空白字符
+					layer.alert('名称不能为空',{icon:6},function(index){
+						layer.close(index);
+						$('#title').focus;
+					})               //layer对象下的alert函数    layer.alert(alertMsg , alertType, alertTit , alertYes),四个参数，alertMsg：信息内容（文本），alertType：提示图标（整数，0-10的选择），alertTit：标题（文本），alertYes：按钮的回调函数
+					return false;
+
+				} 
+				            
+			}
+
+			// 返回成功后执行的操作
+			function complete(data){
+				
+				if (data.status==1) {
+					//alert(data.url);
+					//window.localtion.href=data.url;
+					layer.alert(data.info,{icon:6},function(index){
+
+						layer.close(index);
+						window.location.href=data.url;
+					
+					});
+				}else{
+					layer.alert(data.info,{icon:2},function(index){
+
+						layer.close(index);
+						
+					});
+					return false;
+				}
+			}
+
+		});
+	});
+
+
+</script>
+<script>
+	function edit(id){
+			var id=id;
+			//alert(id);
+			$.ajax({
+				type:"get",
+				url: "__URL__/edit_cate/id/"+id,
+				
+				//data:{id:this.id},
+				dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+				success:ok,
+			});
+			
+			
+			
+	}
+	// 返回成功后执行的操作
+	function ok(data){
+		
+		if (data.status==1) {
+			
+			$('#title').val(data.title);
+			$('#sort').val(data.sort);
+			$('#id').val(data.id);
+			$('#flag').val(1);
+			$('#myModal').modal('show');         //激活模态框
+			
+		}else{
+			layer.alert(data.info,{icon:2},function(index){
+
+				layer.close(index);
+				
+			});
+			return false;
+		}
+	}
+
+</script>
+</head>
+
+<body>
+	<include file="Public:nav" />
+
+	<div id="right">
+		<include file="Public:right_top" />
+		<div class="input-group" id="add_btn">
+			<button class="btn btn-success" type="button" data-toggle="modal" data-target="#myModal">添加分类</button>
+		</div>
+		<div id="content">
+			<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　分类列表</p>
+			<hr>
+			<form action="">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr class="long-tr">
+						  <th width="6%">ID</th>
+						  <th width="19%">分类名称</th>
+						  
+						  <th width="11%">排序</th>
+						  <th width="15%">操作</th>
+					  	</tr>
+
+
+					</thead>
+					<tbody>
+						<volist name='cate' id='vo'>
+							<tr>
+						  		<td>{$vo.id}</td>
+						  		<td>{$vo.title}</td>
+						  		
+						  		
+						  		<td>{$vo.sort}</td>
+						  		<td>
+							  		<a href="javascript:;" class="btn btn-success" onclick="edit({$vo.id})" id="edit_menu">编辑</a>
+									<a href="javascript:;" onclick="del_cate({$vo.id});" class="btn btn-danger">删除</a>
+								</td>
+					  		</tr>
+						</volist>
+						
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+
+	<!-- 模态框  用于点击添加按钮显示在页头 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!-- 关闭按钮 -->
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="ture">&times;</span></button>
+				<h3 class="modal-title">添加分类</h3>
+			</div>
+			<div class="modal-body">
+				<!-- 水平排列的表单 将所有控件放在一个表单组里面 得到更好的排列 -->
+				<form action="{:U('do_addCategory')}" class="form-horizontal" name="addCategory" id="addCategory" method="post">
+					<!-- 隐藏域用于判断 -->
+					<input type="hidden" id="flag" value="0" name="flag">
+					<input type="hidden" id="id" value="" name="id">
+					<div class="form-group">
+						<label for="" class="col-md-3 control-label">分类名称</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="title" id="title" placeholder="输入分类名称">
+						</div>
+					</div>
+				
+					
+					<div class="form-group">
+						<label class="col-md-3 control-label">排&nbsp;序</label>
+						<div class="col-md-8">
+							<input type="text" name="sort" id="sort" value="50" placeholder="输入排序" class="form-control"/>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-success" type="button" id="save_btn">保存内容</button>
+					<button class="btn btn-info" data-dismiss="modal" type="button">关闭</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	function del_cate(id){
+		layer.confirm('是否要删除此条数据，你确定要删除吗？', {icon: 3}, function(index){
+	    layer.close(index);
+	    window.location.href="__URL__/del_cate/id/"+id+"";
+	});
+}
+</script>
+</body>

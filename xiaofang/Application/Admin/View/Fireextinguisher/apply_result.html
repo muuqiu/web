@@ -1,0 +1,166 @@
+<include file="Public:header" />
+<!-- 数据分页样式 -->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pagecss.css">
+<script type="text/javascript" src="__PUBLIC__/js/jquery.print.js"></script> 
+
+<script type="text/javascript">
+	function  my_print(){
+        $("#my_table").print({
+        	//Use Global styles
+            globalStyles : true,
+            //Add link with attrbute media=print
+            mediaPrint : false,
+            //Custom stylesheet
+            
+            //Print in a hidden iframe
+            iframe : false,
+            //Don't print this
+            
+            //Add this at top
+            //prepend : "Hello World!!!<br/>",
+            //Add this on bottom
+            //append : "<br/>Buh Bye!",
+        	});
+    }
+    // function change(){
+    // 	alert(111);
+    // }
+    function apply_change(id){
+			var id=id;
+			//alert(id);
+			layer.confirm('确定要提交更换申请？', {icon: 3}, function(index){
+		    	layer.close(index);
+		    	//return false;
+				$.ajax({
+					type:"get",
+					url: "__URL__/apply_change/id/"+id,
+					
+					//data:{id:this.id},
+					dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+					success:ok,
+				});
+			});
+			
+	}
+	//返回成功后执行的操作
+	function ok(data){
+		
+		if (data.status==1) {
+			
+			layer.alert(data.info,{icon:6},function(index){
+
+				layer.close(index);
+				
+			});
+			//$
+			//$("#change").addClass("disabled");
+			
+		}else{
+			layer.alert(data.info,{icon:2},function(index){
+
+				layer.close(index);
+				
+			});
+
+		}
+	}									
+</script>
+
+</head>
+<body>
+	<div id="right">
+<!-- 右边顶部 -->
+	
+
+		
+	<div id="content">
+		<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　列表</p>
+			<hr>
+		
+		<form action="" id="my_table">
+			
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr><th colspan="15"><h4>灭火器信息</h4></th></tr>
+					<tr class="bg-info">
+						<th>序号</th>
+						<th>电子标签</th>
+						
+						
+						<th>责任人</th>
+						<th>种类</th>
+						<th>类型</th>
+						<th>生产日期</th>
+						
+						<th>过期时间</th>
+						<th>配置场地</th>
+						<th>申请结果</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="wholeFire" id="vo">	
+						<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.qs_id}</td>
+						
+						
+						<td>{$vo.res_person}</td>
+						<td>{$vo.variety}</td>
+						<td>{$vo.type}</td>
+						<td>{$vo.pro_time}</td>
+						
+						<td>{$vo.die_date}</td>
+						<td>{$vo.place}</td>
+						
+						
+						<td>
+						<switch name="vo.change_status" >
+							
+							<case value="1"><span class="label label-warning">未处理</span></case>
+							<case value="2"><span class="label lable-success">已同意</span></case>
+							
+						</switch>
+						</td>
+
+						<!-- <t><edit vid="{$vo.id}"  class="btn btn-primary" ><span class="glyphicon glyphicon-pencil"></span> 编辑</edit> 
+						<button   class="btn btn-danger" data-toggle="modal" data-target="#delbox{$vo.id}"><span class="glyphicon glyphicon-trash"></span> 删除</button></t> -->
+						<td>
+							<switch name='condition'>
+								<case value='11'>
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case>
+								<case value="22">
+									<button class="btn btn-warning" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请报废</button>
+								</case>
+								<case value="3">
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case>
+								<case value='4'>
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case>
+							</switch>
+							</td>
+						</tr>
+					</volist>
+
+					
+					
+				</tbody>
+			</table>
+
+		</form>
+		
+	</div>
+		<center><button class="btn btn-success" onclick="my_print()">打印</button></center>
+	<div class="pages">
+		<center>{$page}</center>								
+	</div>
+</div>
+
+		
+	
+
+</body>
+
+</html>

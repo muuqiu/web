@@ -1,0 +1,113 @@
+<include file="Public:header" />
+<script type="text/javascript">
+	$(function(){
+		$('#save_btn').click(function(){
+			//alert("aaa");
+			$.ajax({
+				type:"post",
+				url: "{:U('do_addextinguisher')}",
+				//beforeSend:checkForm,
+				data: $('#add_extinguisher').serialize(),     //发送的数据, json格式
+				dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+				success:complete,
+			});
+			return false;            //阻止表单自动提交对象
+			
+			// function checkForm(){
+			// 	$("#add_extinguisher input[type='text']").each(function(){
+			// 		if ('' ==$(this).val()) {             
+			// 			layer.alert("请填写完整信息!",{icon:2},function(index){
+			// 				layer.close(index);
+							
+			// 			});
+
+			// 			return false;
+
+			// 		}
+
+
+			// 	});
+
+				
+			// }
+			// function checkForm(){
+			// 	if ('' ==$.trim($('#qs').val())) {             //.trim函数用于去掉字符串首尾的空白字符
+			// 		layer.alert('名称不能为空',{icon:6},function(index){
+			// 			layer.close(index);
+			// 			$('#qs').focus;
+			// 		})               //layer对象下的alert函数    layer.alert(alertMsg , alertType, alertTit , alertYes),四个参数，alertMsg：信息内容（文本），alertType：提示图标（整数，0-10的选择），alertTit：标题（文本），alertYes：按钮的回调函数
+			// 		return false;
+
+			// 	} 
+				            
+			// }
+			
+
+			// 返回成功后执行的操作
+			function complete(data){
+				
+				if (data.status==1) {
+					//alert(data.url);
+					//window.localtion.href=data.url;
+					layer.alert(data.info,{icon:6},function(index){
+
+						layer.close(index);
+						
+					
+					});
+				}else{
+					layer.alert(data.info,{icon:2},function(index){
+
+						layer.close(index);
+						
+					});
+					return false;
+				}
+			}
+
+		});
+	});
+
+
+</script>
+</head>
+<body>
+<div id="right">
+	<div id="content">
+		<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　配置灭火器</p>
+			<hr>
+			<form action="" method="post" role="form" id="add_extinguisher">
+
+			<div class="form-group">
+			<label for="qs">电子标签</label>
+				<input type="text" name="qs" id="qs" class="form-control">
+			</div>
+			<div class="form-group">
+			
+			
+
+			<div class="form-group">
+				<label for="res">责任人</label>
+				<input type="text" name="res" id="res" class="form-control">
+			</div>
+
+			<div class="form-group">
+				<label for="place">配置场地</label>
+				<input type="text" name="place" id="place" class="form-control">
+			</div>
+			
+			
+
+		
+			<button type="button" class="btn btn-primary btn-block" id="save_btn">确认使用</button>
+		</form>
+	</div>
+	
+
+
+</div>
+</body>
+</html>
+
+

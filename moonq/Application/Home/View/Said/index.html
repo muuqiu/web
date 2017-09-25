@@ -1,0 +1,43 @@
+<include file="Public:header" />
+	<div id="main">
+	<div class="visible-xs" style="height:48px"></div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="container-fluid">
+						<volist name="said" id="vo">
+							<div class="content_item">
+								<div class="row">
+									
+									<div class="media" style="padding:20px;">
+									  	<a class="media-left" href="#">
+									    	<img src="{$vo.s_img}" alt="" class="img-circle" height="60px" width="60px">
+									  	</a>
+									  	<div class="media-body">
+									    	<h5 class="media-heading" style="color:#54A96D"><span class="glyphicon glyphicon-user">　{$vo.s_writer}</span>　<span class=" glyphicon glyphicon-envelope">　{$vo.create_time|date="Y-m-d",###}</span></h5>
+									    	<p>{$vo.s_content}</p>
+									    	<hr id="hr">
+										</div>
+									
+									</div>
+						
+								</div>
+							</div>
+						</volist>
+						<hr>
+						<div class="row">
+							<div class="pages">
+								<center>{$page}</center>								
+							</div>							
+						</div>						
+					</div>
+
+				</div>
+				<include file="Public:right" />		
+			</div>			
+		</div>
+		<include file="Public:footer" />
+	</div>
+</body>
+</html>

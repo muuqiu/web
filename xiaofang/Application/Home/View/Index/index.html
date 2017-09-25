@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<title>木秋博客</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+
+	<style>
+		body{
+			font-family: "Microsoft YaHei", "simsun", "Helvetica Neue", Arial, Helvetica, sans-serif;
+			background-image: url(__PUBLIC__/img/bg.jpg);
+			background-attachment: fixed;
+		}
+		
+		.content_item{
+			background-color:transparent;   /*transparent 为透明  显示其下面的那个颜色 背景透明*/
+			box-shadow: 0 0 10px 7px rgba(218, 218, 218, 0.9);
+			margin: 20px 0;
+			padding:20px 10px; 
+		}
+		.row_title{
+			margin: 20px 0;
+
+		}
+		.row_title a{
+			font-size: 20px;
+			margin-left: 10px;
+
+
+			
+		}
+		.content_item #a_btn{
+			float: right;
+			margin-right: 10px;
+		}
+		.row_text{
+			font-size: 16px;
+		}
+		.row_bottom{
+			margin-top:14px;
+		}
+		.row_bottom span{
+			font-size: 14px;
+		}
+		a{
+			color: #333;
+		}
+		a:focus, a:hover {
+    		color: #449d44;
+    		text-decoration: none;
+		}
+		#navbar-collapse a{
+			font-size: 19px;
+			font-weight:3px;
+			color: black;
+
+
+		}
+		#navbar-collapse a:hover{
+			color: #449d44;
+		}
+		.navbar{
+			height: 70px;
+			opacity: 0.8;
+			background-color: #fff;
+			filter: alpha(opacity=80);
+		}
+		.navbar-header{
+			padding-top: 10px;
+		}
+		.navbar-nav{
+			padding-top: 10px;
+		}
+		.navbar{
+			border-bottom:2px solid #449d44;
+		}
+		.navbar li{
+			margin-left: 20px;
+		}
+		.dropdown_nav li{
+			margin-left: 0;
+		}
+		/*.container{
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+		}
+		#main{
+			opacity: 0.8;
+			filter: alpha(opacity=80);
+		} */
+		/*.content_item{
+			opacity: 0;
+			filter: alpha(opacity=50);
+			background-color: #fff;
+		}*/
+		#hr {
+		    background: #ddd;
+		    color: #ddd;
+		    clear: both;
+		    float: none;
+		    width: 100%;
+		    height: 1px;
+		    margin: 10px 0;
+		    border: none;
+		   
+		    box-sizing: content-box;
+		}
+		.myLabel span{
+			display: inline-block;
+			height: 20px;
+			margin-bottom: 5px;
+		}
+
+		.list-inline{
+			
+			text-align: center;
+
+
+		}
+		.list-inline a{
+			color: #666767;
+			font-size: 14px;
+		}
+		.list-inline li{
+			margin-left: 35px;
+			font-size: 14px;
+			color: #666767;
+		}
+		.list-inline li p{
+
+		}
+		.list-inline a:hover{
+			color:#449d44;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand" style="margin:0;padding:0;"><img src="__PUBLIC__/img/logo.png" alt=""></a>
+				<!-- 响应式切换导航布局按钮 -->
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">切换导航</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+				
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="#">首页</a></li>
+					<li class="dropdown ">
+						
+						<a data-toggle="dropdown" href="#">
+							分类
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-left dropdown_nav">
+							<li><a href="#">java</a></li>
+							<li><a href="#">web渗透</a></li>
+							<li><a href="#">kali</a></li>
+							<li><a href="#">生活</a></li>
+						</ul>
+
+					
+					<li><a href="#">说说</a></li>
+					<li><a href="#">留言板</a></li>
+					<li><a href="#">关于我</a></li>
+					<li>
+						<form action="" class="navbar-form navbar-right">
+						<div class="input-group hidden-xs " style="width:140%;margin-left:40px;">
+							<input type="text" class="form-control" style="border:1px solid green;">
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+						</div>
+						</form>
+					</li>
+		
+				</ul>
+			</div>
+		
+		</div>		
+	
+	</nav>
+
+	<div class="carousel slide" id="banner" style="margin-top:70px;">
+		<!-- 轮播图指示灯 -->
+		<ol class="carousel-indicators">
+			<li data-target="#banner" data-slide-to="0" class="active"></li>
+			<li data-target="#banner" data-slide-to="1"></li>
+			<li data-target="#banner" data-slide-to="2"></li>
+		</ol>
+		<!-- 轮播图内容 -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<img src="__PUBLIC__/img/slide1.jpg" alt="">
+			</div>
+			<div class="item">
+				<img src="__PUBLIC__/img/slide2.jpg" alt="">
+			</div>
+			<div class="item">
+				<img src="__PUBLIC__/img/slide3.jpg" alt="">
+			</div>
+		</div>
+
+		<!-- 轮播图左右按钮 -->
+		<a href="#banner" data-slide="prev" class="carousel-control left">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a href="#banner" data-slide="next" class="carousel-control right">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>
+
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="container-fluid">
+						
+						<div class="content_item">
+							<div class="row row_title">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span class="label label-danger laber-sm" style="display: inline-block;line-height: 2;margin-top:-5px">原创</span>
+									<a href="#">哈哈哈我都不的噶啥的</a>
+								</div>
+								
+							</div>
+							<div class="row">
+							
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<img src="__PUBLIC__/img/info1.jpg" alt="" class="img-responsive">
+								</div>
+								<div class="col-md-7 col-sm-7 col-xs-7">
+									<p class="row_text" style="text-indent:20px;">
+										TVOS2.0是在TVOS1.0与华为MediaOS及阿里巴巴YunOS融合的基础上，打造的新一代智能电视操作系统。华为主要承担开发工作，内置的电视购物商城由阿里方面负责。
+									</p>
+								</div>
+							
+							</div>
+							<div class="row row_bottom">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span style="color:green;font-size:16px;">2016-08-17 17.12 作者:木秋 分类:[php] 点击:[330]</span>
+									<a href="#" class="btn btn-info" id="a_btn" style="margin-top:-5px;">阅读全文</a>
+								</div>
+									
+							</div>
+						</div>
+						
+						<div class="content_item">
+							<div class="row row_title">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span class="label label-danger laber-sm" style="display: inline-block;line-height: 2;margin-top:-5px">原创</span>
+									<a href="#">哈哈哈我都不的噶啥的</a>
+								</div>
+								
+							</div>
+							<div class="row">
+							
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<img src="__PUBLIC__/img/info1.jpg" alt="" class="img-responsive">
+								</div>
+								<div class="col-md-7 col-sm-7 col-xs-7">
+									<p class="row_text" style="text-indent:20px;">
+										TVOS2.0是在TVOS1.0与华为MediaOS及阿里巴巴YunOS融合的基础上，打造的新一代智能电视操作系统。华为主要承担开发工作，内置的电视购物商城由阿里方面负责。
+									</p>
+								</div>
+							
+							</div>
+							<div class="row row_bottom">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span style="color:green;font-size:16px;">2016-08-17 17.12 作者:木秋 分类:[php] 点击:[330]</span>
+									<a href="#" class="btn btn-info" id="a_btn" style="margin-top:-5px;">阅读全文</a>
+								</div>
+									
+							</div>
+						</div>
+
+						<div class="content_item">
+							<div class="row row_title">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span class="label label-danger laber-sm" style="display: inline-block;line-height: 2;margin-top:-5px">原创</span>
+									<a href="#">哈哈哈我都不的噶啥的</a>
+								</div>
+								
+							</div>
+							<div class="row">
+							
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<img src="__PUBLIC__/img/info1.jpg" alt="" class="img-responsive">
+								</div>
+								<div class="col-md-7 col-sm-7 col-xs-7">
+									<p class="row_text" style="text-indent:20px;">
+										TVOS2.0是在TVOS1.0与华为MediaOS及阿里巴巴YunOS融合的基础上，打造的新一代智能电视操作系统。华为主要承担开发工作，内置的电视购物商城由阿里方面负责。
+									</p>
+								</div>
+							
+							</div>
+							<div class="row row_bottom">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<span style="color:green;font-size:16px;">2016-08-17 17.12 作者:木秋 分类:[php] 点击:[330]</span>
+									<a href="#" class="btn btn-info" id="a_btn" style="margin-top:-5px;">阅读全文</a>
+								</div>
+									
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-4 hidden-xs hidden-sm">
+					
+					<div id="right" style="margin-top:17px;">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<h4><span class="glyphicon glyphicon-user"></span>　用户登录</h4>
+									
+									<form action="" class="form-horizontal">
+										<div class="form-group">
+											<label for="" class="col-md-3 col-sm-3 control-label">用户名:</label>
+											<div class="col-md-9 col-sm-9">
+												<input class="form-control" type="text" placeholder="用户名">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="" class="col-md-3 col-sm-3 control-label">密　码:</label>
+											<div class="col-md-9 col-sm-9">
+												<input class="form-control" type="text" placeholder="密码">
+											</div>
+										</div>
+										<div class="button-group" style="margin-left:90px;">
+											<button class="btn btn-info" type="submit">登录</button>
+											<button class="btn btn-danger" style="margin-left:50px;">QQ登录</button>
+										</div>
+									
+									</form>
+									
+								</div>
+
+
+							</div>
+							<hr id="hr">
+
+							
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<h4><span class="glyphicon glyphicon-pencil">　我的标签</span></h4>
+
+									<div class="myLabel">
+										<span class="label label-default">Default</span>
+											<span class="label label-primary">Primary</span>
+											<span class="label label-success">Success</span>
+											<span class="label label-info">Info</span>
+											<span class="label label-warning">Warning</span>
+											<span class="label label-danger">Danger</span>
+											<span class="label label-primary">Primary</span>
+											<span class="label label-success">Success</span>
+											<span class="label label-info">Info</span>
+											<span class="label label-warning">Warning</span>
+											<span class="label label-danger">Danger</span>
+											<span class="label label-primary">Primary</span>
+											<span class="label label-success">Success</span>
+											<span class="label label-info">Info</span>
+											<span class="label label-warning">Warning</span>
+											<span class="label label-danger">Danger</span>
+											<span class="label label-primary">Primary</span>
+											<span class="label label-success">Success</span>
+											<span class="label label-info">Info</span>
+											<span class="label label-warning">Warning</span>
+											<span class="label label-danger">Danger</span>
+									</div>
+
+								</div>
+
+							</div>
+
+							<hr id="hr">
+
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="article_title" style="padding:10px;height:55px;background:#449d44;color:#fff">
+										<h4>随机文章</h4>
+									</div>
+
+									<div class="artic_main" style="padding:10px;background:#fff;height:300px;">
+										<div class="row">
+											<div class="col-md-5 col-sm-5 col-xs-5">
+												<img src="__PUBLIC__/img/info1.jpg" class="img-responsive" alt="">
+											</div>
+											<div class="col-md-7 col-sm-7 col-xs-7">
+												<h4 style="font-size:15px;line-height:1.5;margin-top:0;">广电总局发布TVOS2.0 华为阿里参与研发</h4>
+												
+											</div>
+										</div>
+										<hr id="hr">
+										<div class="row">
+											<div class="col-md-5 col-sm-5 col-xs-5">
+												<img src="__PUBLIC__/img/info1.jpg" class="img-responsive" alt="">
+											</div>
+											<div class="col-md-7 col-sm-7 col-xs-7">
+												<h4 style="font-size:15px;line-height:1.5;margin-top:0;">广电总局发布TVOS2.0 华为阿里参与研发</h4>
+												
+											</div>
+										</div>
+										<hr id="hr">
+										<div class="row">
+											<div class="col-md-5 col-sm-5 col-xs-5">
+												<img src="__PUBLIC__/img/info1.jpg" class="img-responsive" alt="">
+											</div>
+											<div class="col-md-7 col-sm-7 col-xs-7">
+												<h4 style="font-size:15px;line-height:1.5;margin-top:0;">广电总局发布TVOS2.0 华为阿里参与研发</h4>
+												
+											</div>
+										</div>
+
+										<hr id="hr">
+
+									</div>
+									
+									
+								</div>
+								
+							</div>
+							
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<h4><span class="glyphicon glyphicon-heart">　友情链接</span></h4>
+
+									<div class="myLink">
+										<a href="#" class="btn btn-info" style="display:inline-block;margin-top:10px;">Thinkphp</a>
+										<a href="#" class="btn btn-info" style="display:inline-block;margin-top:10px;">Thinkphp</a>
+										<a href="#" class="btn btn-info" style="display:inline-block;margin-top:10px;">Thinkphp</a>
+										<a href="#" class="btn btn-info" style="display:inline-block;margin-top:10px;">表哥的博客</a>
+									</div>
+
+								</div>
+
+							</div>
+
+
+							
+
+						</div>
+					</div>
+
+
+					
+				</div>
+			</div>
+
+			
+		</div>
+		
+
+
+		<div class="footer row" style="background:#000;height:120px;margin-top:150px;padding:10px;">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<ul class="list-inline">
+
+						<li><a href="#">网站首页</a></li>
+						<li><a href="#">留言反馈</a></li>
+						<li><a href="#">关于我</a></li>
+						
+					</ul>
+					<ul class="list-inline">
+						<li><p>powered by: 木秋 | working with <a href="www.thinkphp.cn">Thinkphp</a>+<a href="www.bootcss.com">Bootstrap</a></p></li>
+					</ul>
+
+					<ul class="list-inline">
+						<li><p>Copyright © 2015 - 2016 木秋博客 & 版权所有   <a href="www.miitbeian.gov.cn">蜀ICP备16022425号</a> | <a href="#">博客管理</a></p></li>
+					</ul>
+						
+				</div>
+			</div>
+		
+	</div>
+	
+
+
+
+
+
+
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// 设置自动轮播
+		$('#banner').carousel({
+			interval:4000,
+		});
+	});
+</script>
+</body>
+</html>

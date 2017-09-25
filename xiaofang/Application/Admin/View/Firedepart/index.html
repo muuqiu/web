@@ -1,0 +1,39 @@
+<include file="Public:header" />	
+</head>
+<body>
+<div style="overflow: hidden;width: 190px;" >
+	<div id="left" style="width:210px;height:100%;margin:0;border:0;background:#2F4050;position:relative;float: left;overflow-y: auto;overflow-x: hidden;">
+		<div class="panel-group" id="accordion">
+			<volist name='data2' id='v'>
+				<div class="panel panel-default" style="margin:0;border:0;background:#2F4050">
+					<div class="panel-heading" style="margin:0;border:0;padding:0;">
+						<ul class="nav nav-tabs nav-stacked" style="margin:0;border:0;text-align:center;background:#2F4050">
+							<li>
+								<!-- 判断是否有二级菜单 -->
+								<eq name="v['istwo']" value="1"><a href="#{$v.name}" data-toggle="collapse" data-parent="#accordion">{$v.name}</a></eq>
+								<eq name="v['istwo']" value="0"><a href="{:U('Fireinfo/index',array('id'=>$v['id']))}" target="right_view">{$v.name}</a></eq>
+								
+							</li>
+						</ul>
+							
+						
+					</div>
+
+					<div class="panel-collapse collapse" id="{$v.name}">
+						<div class="panel-body" style="margin:0;border-left:3px solid #1AB394;border-top:0;padding:0;">
+							<ul class="nav nav-tabs nav-stacked" style="margin:0;;text-align:center;border:0;background:#293846">
+								<volist name="v['next']" id="menu_list">
+									<li><a href="{:U('Fireinfo/index',array('id'=>$menu_list['id']))}" target="right_view">{$menu_list.name}</a></li>
+								</volist>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</volist>
+		
+		</div>
+		</div>
+	</div>
+</body>
+</html>

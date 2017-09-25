@@ -1,0 +1,122 @@
+<include file="Public:header" />
+	
+</head>
+<body>
+<div id="right">
+	<div id="content">
+		<form action="">
+			<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　申请消息</p>
+			<hr>
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+					  <th width="6%">ID</th>
+					  <th width="10%">申请部门</th>
+					  <th width="19%">申请时间</th>
+					  <th width="10%">申请内容</th>
+					  <th width="18%">申请方式</th>
+					  <th width="15%">操作</th>
+				  	</tr>
+				</thead>
+				<tbody>
+					<volist name='list' id='vo'>
+						<tr>
+					  		<td>{$vo.id}</td>
+					  		
+					  		<td>{$vo.depart_name}</td>
+					  		
+					  		<td>{$vo.create_time|date='Y年m月d日 H:i:s',###}</td>
+					  		<th>{$vo.name}</th>
+					  		<td>
+				  			    <eq name="vo['type']" value="0"><span class="label label-info">添加</span></label></eq>
+				  			    <eq name="vo['type']" value="1"><span class="label label-primary">修改</span></eq>
+				  			    <eq name="vo['type']" value="2"><span class="label label-danger">删除</span></eq>
+				  			
+					  			
+					  		</td>
+					  		
+					  		
+					  		<td>
+					  			<a href="javascript:;" class="btn btn-success" onclick="agree({$vo.id})" id="agree">同意</a>
+								<a href="javascript:;" onclick="disagree({$vo.id});" class="btn btn-danger">不同意</a>
+							</td>
+				  		</tr>
+					</volist>
+					
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<div id="content">
+		<form action="" id="my_table">
+			<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　申请报废消息</p>
+			<hr>
+			<table class="table table-bordered table-hover">
+				<thead>
+					
+					<tr class="bg-info">
+						<th>序号</th>
+						<th>电子标签</th>
+						<th>种类</th>
+						<th>类型(kg)</th>
+						<th>生产日期</th>
+						<th>过期时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="wholeFire" id="vo">	
+						<tr>
+							<td>{$vo.id}</td>
+							<td>{$vo.qs_id}</td>
+							<td>{$vo.variety}</td>
+							<td>{$vo.type}</td>
+							<td>{$vo.pro_time}</td>
+							<td>{$vo.die_date}</td>
+							
+					  		<td>
+					  			<eq name='vo["discarde"]' value="2">
+					  				<span class="label label-success">已同意</span>
+					  			</eq>
+					  			<eq name='vo["discarde"]' value="1">
+					  				<a href="javascript:;" class="btn btn-success" onclick="agree_discarde({$vo.qs_id})" id="agree">同意</a>
+					  			</eq>
+					  			
+								
+								
+							</td>
+
+				  		</tr>
+					</volist>
+					
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+
+
+
+<script>
+	function agree(id){
+		layer.confirm('同意后无法恢复，你确定要同意吗？', {icon: 3}, function(index){
+	    	layer.close(index);
+	    	window.location.href="agree/id/"+id+"";
+		});
+	}
+	function agree_discarde(id){
+		layer.confirm('同意后无法恢复，你确定要同意吗？', {icon: 3}, function(index){
+	    	layer.close(index);
+	    	window.location.href="agree_discarde/id/"+id+"";
+		});
+	}
+	function disagree(id){
+		layer.confirm('操作后无法恢复，你确定不同意该条申请吗？', {icon: 3}, function(index){
+	    	layer.close(index);
+	    	window.location.href="disagree/id/"+id+"";
+		});
+	}
+</script>
+
+</body>
+</html>

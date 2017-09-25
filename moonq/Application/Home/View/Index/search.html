@@ -1,0 +1,56 @@
+<include file="Public:header" />
+	<div id="main">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="container-fluid">
+						<empty name="result"><p style="padding:20px;font-size:20px;">没有找到相关数据!</p></empty>
+						<volist name="result" id="vo">
+
+							<div class="content_item">
+								<div class="row row_title">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<eq name="vo['type']" value="0"><span class="label label-info" style="font-size:15px;">原创</span></eq>
+										<eq name="vo['type']" value="1"><span class="label label-success" style="font-size:15px;">转载</span></eq>
+										
+										<a href="{:U('article_detail',array('id'=>$vo['id']))}">{$vo.title}</a>
+									</div>
+									
+								</div>
+								<div class="row">
+								
+									<div class="col-md-5 col-sm-5 col-xs-5">
+										<img src="{$vo.photo}" alt="{$vo.title}" class="img-responsive">
+									</div>
+									<div class="col-md-7 col-sm-7 col-xs-7">
+										<p class="row_text" style="text-indent:20px;">
+											{$vo.description}
+										</p>
+									</div>
+								
+								</div>
+								<div class="row row_bottom">
+									<div class="col-md-12 col-sm-12 col-xs-12">
+										<span style="color:green;font-size:16px;">{$vo.last_time|date="Y-m-d",###}　 作者:［{$vo.writer}］　分类:[{$vo.category_name}]　点击:[{$vo.count}]</span>
+										<a href="{:U('article_detail',array('id'=>$vo['id']))}" class="btn btn-info" id="a_btn" style="margin-top:-5px;">阅读全文</a>
+									</div>
+										
+								</div>
+							</div>
+						</volist>
+						<hr>
+						<div class="row">
+							<div class="pages">
+								<center>{$page}</center>								
+							</div>							
+						</div>						
+					</div>
+
+				</div>
+				<include file="Public:right" />		
+			</div>			
+		</div>
+		<include file="Public:footer" />
+	</div>
+</body>
+</html>

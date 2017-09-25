@@ -1,0 +1,58 @@
+
+
+<PHP>
+		
+        $data=M('auth_rule')->where('level=1')->order('sort')->select();
+        $left_list=M('auth_rule')->where('level=0')->order('sort')->select();
+		
+		$user['img']=$_SESSION['userimg'];
+		$user['username']=$_SESSION['username'];
+
+        //通过遍历两次 的方式 将菜单的层次通过多维数组的层次表现出来  也可以用关联查询的方式
+        $data2=array();
+        foreach ($left_list as $key => $value) {
+            
+            foreach ($data as $key1 => $value1) {
+                if ($value['id']==$value1['pid']) {
+                    $value['next'][]=$value1;
+                }
+            }
+            $data2[]=$value;      //左侧导航
+            
+       
+        }
+</PHP>	
+<div id="left" style="width:220px;height:100%;margin:0;border:0;background:#2F4050;position:relative;float: left;">
+	<div style="padding-left:50px;padding-top:40px;padding-bottom:20px;margin-bottom:10px">
+		<span><img src="{$user['img']}" alt="" class="img-circle" height="80px" width="80px"></span>
+		<span style="display:block;color:#fff;padding:10px;">欢迎你:[{$user['username']}]</span>
+	</div>
+	<div class="panel-group" id="accordion">
+	<volist name='data2' id='v'>
+		<div class="panel panel-default" style="margin:0;border:0;background:#2F4050">
+			<div class="panel-heading" style="margin:0;border:0;padding:0;">
+				<ul class="nav nav-tabs nav-stacked" style="margin:0;border:0;text-align:center;background:#2F4050">
+					<li>
+						<a href="#{$v.name}" data-toggle="collapse" data-parent="#accordion">{$v.title}</a>
+					</li>
+				</ul>
+					
+				
+			</div>
+
+			<div class="panel-collapse collapse" id="{$v.name}">
+				<div class="panel-body" style="margin:0;border-left:3px solid #1AB394;border-top:0;padding:0;">
+					<ul class="nav nav-tabs nav-stacked" style="margin:0;;text-align:center;border:0;background:#293846">
+						<volist name="v['next']" id="menu_list">
+							<li><a href="{:U($menu_list['name'])}">{$menu_list.title}</a></li>
+						</volist>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+	</volist>
+	
+</div>
+
+</div>

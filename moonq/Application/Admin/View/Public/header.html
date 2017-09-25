@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<title>木秋博客后台管理</title>
+	<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC__/css/style.css">
+	
+	<style>
+		/*.right{
+			width: 230px;
+			height:100%;
+			background-color: rgb(41, 56, 70);
+		}
+		.panel-default .panel-heading{
+			background-color: rgb(41, 56, 70);
+			color: #fff;
+			border: 0;
+			margin: 0;
+		}*/
+		
+		#left .nav a{
+			color: #a7b1c2;
+			outline-style:none;
+			background-color: transparent !important;
+		}
+		
+		#left .nav-tabs li a:hover{
+			background-color: #233646;
+			border-color: #233646;
+			color: #fff;
+		}
+		/*用于右边课滚动 左边固定*/
+		body,html{overflow:hidden;height: 100%;background:#F3F3F4;}
+		#right{
+			height: 100%;
+			overflow: auto;
+			margin-left:240px;
+		}
+		#right_top{
+			padding:20px;
+			background:#F3F3F4;
+		}
+		#right_top a{
+			color:#1AB394;
+			font-size: 18px;
+
+		}
+		#right_nav{
+			margin:20px 0;
+			background:#fff;
+			height:60px;
+			padding-top:20px;
+			padding-left:30px;
+		}
+		#right_nav a{
+			color:#1AB394;
+			font-size: 16px;
+
+		}
+		#content{
+			background:#fff;
+			padding:20px;
+			margin-right: 20px;
+		}
+		#add_btn{
+			 margin-bottom:20px;
+		}
+		.table th,tr{
+			text-align: center;
+			vertical-align:middle;
+				
+		}
+		.table tbody tr td{
+			/*text-align: center;*/
+			vertical-align:middle;       /*表格内容垂直居中*/
+		}
+		.label{
+			font-size:15px;              /*设置标签大小*/
+		} 
+
+
+	
+	</style>
+	<script src="__PUBLIC__/js/jquery.min.js"></script>
+	<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+	<!-- <script src="__PUBLIC__/js/jquery.form.js"></script>         <!-- jquery ajaxForm 的js --> -->
+	<script src="__PUBLIC__/js/layer.js"></script>         <!-- 弹窗js -->
+

@@ -1,0 +1,187 @@
+<!DOCTYPE>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	
+    <link rel="stylesheet" href="__PUBLIC__/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/style.css">
+
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__PUBLIC__/js/bootstrap.min.js"></script>
+    <script src="__PUBLIC__/js/jquery.form.js"></script>         <!-- jquery ajaxForm 的js -->
+    <script src="__PUBLIC__/laydate/laydate.js"></script>	<!-- 日历插件 -->
+<!-- 引入图片上传插件 -->
+	<script src="__PUBLIC__/js/uploadify/jquery.uploadify.min.js"></script>
+	<link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+	
+</head>
+<body>
+	
+	<div id="right">
+		
+		<div id="content">
+			
+			<form action="" class="form-horizontal" id="add_admin" method="post" enctype=multipart/form-data>
+				<p style="font-size:15px;"><span class="glyphicon glyphicon-user"></span>　添加用户</p>
+				<hr>
+				<div class="form-group">
+						<label for="" class="col-md-3 control-label">用 户 名</label>
+						<div class="col-md-6">
+							<input type="text" name="username" placeholder="输入用户名" class="form-control" id="username">
+						</div>
+						
+				</div>
+				<hr>
+				<div class="form-group">
+						<label for="" class="col-md-3 control-label">密　　码</label>
+						<div class="col-md-6">
+							<input type="password" name="pd" placeholder="输入密码" class="form-control" id="pd">
+						</div>
+						
+				</div>
+				<hr>
+				<div class="form-group">
+						<label for="" class="col-md-3 control-label">确认密码</label>
+						<div class="col-md-6">
+							<input type="password" name="r_pd" placeholder="再次输入密码" class="form-control" id="r_pd">
+						</div>
+						
+				</div>
+				<hr>
+				<div class="form-group">
+						<label for="" class="col-md-3 control-label">所属部门</label>
+						<div class="col-md-6">
+							<select name="pid" id="pid" class="form-control">
+								
+								<option value="0">--请选择部门--</option>
+								
+								<volist name="depart" id="vo">
+									<option value="{$vo.id}"><if condition='$vo.level eq 0'>&nbsp;&nbsp;&nbsp;&nbsp;— <elseif condition='$vo.level eq 1' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— —</if>{$vo.name}</option>
+								</volist>
+							</select>
+							
+						</div>
+						
+				</div>
+				<div class="form-group">
+						<label for="" class="col-md-3 control-label">用户等级</label>
+						<div class="col-md-6">
+							<select name="level" id="level" class="form-control">
+								<option value="1">1.段领导/保卫科</option>
+								<option value="2">2.材料科</option>
+								<option value="3">3.其他科室/车间</option>
+								<option value="4">4.班组</option>
+							</select>
+							
+						</div>
+						
+				</div>
+				<hr>
+				<div class="form-group">
+					<label for="" class="col-md-3 control-label"></label>
+					<div class="col-md-6">
+						<button class="btn btn-success" id="btn_save">保存内容</button>
+						<a class="btn btn-danger" href="{:U('admin_list')}">取消</a>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+		
+		
+		<script>
+			$(function(){
+						// 缩略图片上传代码
+				$('#photo_file').uploadify({
+					'swf':'__PUBLIC__/js/uploadify/uploadify.swf',
+					'uploader':'{:U("Upload/uploadimg")}',           //处理上传的php文件
+					'cancelImg':'__PUBLIC__/js/uploadify/uploadify-cancel.png',   //背景按钮
+					'buttonText':'上传头像',
+					'height':'35',
+					'auto':true,         //是否自动上传
+					'fileTypeExts':'*.gif;*.jpg;*.png',   //允许上传的类型
+					'queueSizeLimit':1,   //等待队列大小  对多可一次传多少
+					'onUploadSuccess':function(file,data,response){         //成功后执行回调函数
+						//alert(data);
+						$("#userimg").val('__ROOT__/Upload'+data);      //data里是上传文件地址(不完整)
+						$("#upload_img").attr('src','__ROOT__/Upload'+data).show();
+					}
+				});
+
+			});
+		</script>
+
+		<script>
+			$(function(){
+				$('#btn_save').click(function(){
+					$.ajax({
+					type:'post',
+					url:"{:U('do_addAdmin')}",
+					beforeSend:checkForm,
+					data:{
+						
+						username:$('#username').val(),
+						pd:$('#pd').val(),
+						userimg:$('#userimg').val(),
+					},
+					dataType:'json',
+					success:complete,
+					});
+					return false;
+
+					function checkForm(){
+						if (''==$.trim($('#username').val())) {
+
+							layer.alert('用户名不能为空',{icon:6},function(index){
+								layer.close(index);
+								$('#username').focus;
+							})
+							return false;
+						}
+						if (''==$.trim($('#pd').val())) {
+							layer.alert('密码不能为空',{icon:6},function(index){
+								layer.close(index);
+								$('#pd').focus;
+							})
+							return false;
+						}
+						if ($.trim($('#pd').val())!=$.trim($('#r_pd').val())) {
+							layer.alert('两次密码不一样!',{icon:6},function(index){
+								layer.close(index);
+								$('#pd').focus;
+							})
+							return false;
+						}
+						
+					}
+					function complete(data){
+						//alert(data);
+						if (data.status==1) {
+							
+							//window.localtion.href=data.url;
+							layer.alert(data.info,{icon:6},function(index){
+
+								layer.close(index);
+								window.location.href=data.url;
+							
+							});
+						}else{
+							layer.alert(data.info,{icon:2},function(index){
+
+								layer.close(index);
+								
+							});
+							return false;
+						}
+					}
+				});
+			});
+		</script>
+		<script src="__PUBLIC__/Common/Ueditor/ueditor.config.js"></script>
+		<script src="__PUBLIC__/Common/Ueditor/ueditor.all.min.js"></script>
+		<!-- 注意 必须先要引用第一个js文件 不然会报错!! -->
+</body>
+	
+

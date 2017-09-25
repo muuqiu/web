@@ -1,0 +1,263 @@
+
+<include file="Public:header" />
+<!-- 数据分页样式 -->
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/pagecss.css">
+<script type="text/javascript" src="__PUBLIC__/js/jquery.print.js"></script> 
+<style type="text/css">
+	.time{
+		width:100%;
+		height: 100%;
+		
+	}
+	#add_btn .btn{
+		margin-left: 20px;
+	}
+	/*laydata*/
+
+</style>
+
+<script type="text/javascript">
+	function  my_print(){
+        $("#my_table").print({
+        	
+            globalStyles : true,
+            
+            mediaPrint : false,
+            
+            iframe : false,
+            
+        	});
+    }
+    
+    function apply_change(id){
+			var id=id;
+			//alert(id);
+			layer.confirm('确定要提交更换申请？', {icon: 3}, function(index){
+		    	layer.close(index);
+		    	//return false;
+				$.ajax({
+					type:"get",
+					url: "__APP__/Fireextinguisher/apply_change/id/"+id,
+					
+					//data:{id:this.id},
+					dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+					success:ok,
+				});
+			});
+			
+	}
+	function apply_discarde(id){
+			var id=id;
+			//alert(id);
+			layer.confirm('确定要提交更换申请？', {icon: 3}, function(index){
+		    	layer.close(index);
+		    	//return false;
+				$.ajax({
+					type:"get",
+					url: "__APP__/Fireextinguisher/apply_discarde/id/"+id,
+					
+					//data:{id:this.id},
+					dataType:"json",        //预期返回的数据类型   thinkphp默认返回json数组
+
+					success:ok,
+				});
+			});
+			
+	}
+	//返回成功后执行的操作
+	function ok(data){
+		
+		if (data.status==1) {
+			
+			layer.alert(data.info,{icon:6},function(index){
+
+				layer.close(index);
+				
+			});
+			//$
+			//$("#change").addClass("disabled");
+			
+		}else{
+			layer.alert(data.info,{icon:2},function(index){
+
+				layer.close(index);
+				
+			});
+
+		}
+	}
+
+	laydate({
+	  elem: '#pro_date', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+	  //event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+	});									
+</script>
+
+</head>
+<body>
+	<div id="right">
+<!-- 右边顶部 -->
+	
+
+		
+	<div id="content">
+		<p style="font-size:15px;"><span class="glyphicon glyphicon-th-list"></span>　信息检索</p>
+			<hr>
+		<form name="searchdata" id="searchdata" method="post" action="{:U('Fireinfo/index')}">
+			<table class="table table-striped table-bordered table-hover" width="90%">
+				<tr>
+					<td width="10%">责 任 人:</td>
+					<td width="20%"><input type="" name="res_person" class="time"></td>
+					<td width="10%">电子标签:</td>
+					<td width="20%"><input type="text" name="qs_id" class="time"></td>
+					<td width="20%">配置场地:</td>
+					<td width="20%"><input type="text" name="place" class="time"></td>
+					
+				</tr>
+				<tr>
+					
+					<td>灭火器种类:</td>
+					<td><select name="variety" style="width:100%;height: 120%">
+							<option value="">-请选择种类-</option>
+							<option value="干粉">干粉</option>
+							<option value="水型">水型</option>
+							<option value="二氧化碳">二氧化碳</option>
+							<option value="1211">1211</option>
+						</select>
+					</td>
+					<td>型　　号:</td>
+					<td><select name="type" style="width:100%;height: 120%">
+							<option value="">-请选择重量-</option>
+							<option value="1">　1kg</option>
+							<option value="2">　2kg</option>
+							<option value="3">　3kg</option>
+							<option value="4">　4kg</option>
+							<option value="5">　5kg</option>
+							<option value="6">　6kg</option>
+							<option value="7">　7kg</option>
+							<option value="8">　8kg</option>
+							<option value="9">　9kg</option>
+							<option value="10">　10kg</option>
+						</select>
+					</td>
+					<td>出厂日期:</td>
+					<td><input id="pro_date" name="pro_time" class="time" onclick="laydate()"></td>
+					
+				</tr>
+				
+				<tr>
+					<td>维保日期:</td>
+					<td><input id="rep_date" name="during_time" class="time" onclick="laydate()"></td>
+					<td>到期日期:</td>
+					<td><input id="die_date" name="die_date" class="time" onclick="laydate()"></td>
+					<td>检测日期:</td>
+					<td><input id="check_date" name="check_date" class="time" onclick="laydate()"></td>
+				</tr>
+					
+				<tr>
+					
+					<td colspan='6' width="100%"><button class="btn btn-info time" type="submit" id="search">搜　　索</button></td>
+					</tr>
+				</tr>
+			
+
+			</table>
+		</form>
+		<br>
+		<form action="" id="my_table">
+			
+			<table class="table table-bordered table-hover">
+				<thead>
+					<tr><th colspan="15"><h4>灭火器信息</h4></th></tr>
+					<tr class="bg-info">
+						<th>序号</th>
+						<th>电子标签</th>
+						
+						<th>隶属部门</th>
+						<th>责任人</th>
+						<th>种类</th>
+						<th>类型(kg)</th>
+						<th>出厂日期</th>
+						<th>维保时间</th>
+						<th>过期时间</th>
+						<th>配置场地</th>
+						
+						<th>检查时间</th>
+						<th>状态</th>
+						<th>操作</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="wholeFire" id="vo">	
+						<tr class="bg-<switch name="vo.status" >
+							<case value="0">danger</case>
+							<case value="1">warning</case>
+							<case value="2">defult</case>
+							<case value="3"></case> 
+						</switch>" >
+						<td>{$vo.id}</td>
+						<td>{$vo.qs_id}</td>
+						<td>{$vo.group_id}</td>
+						
+						<td>{$vo.res_person}</td>
+						<td>{$vo.variety}</td>
+						<td>{$vo.type}</td>
+						<td>{$vo.pro_time}</td>
+						<td>{$vo.rep_date}</td>
+						<td>{$vo.die_date}</td>
+						<td>{$vo.place}</td>
+						
+						<td>{$vo.check_date}</td>
+						<td>
+						<switch name="vo.status" >
+							<case value="0">已过期</case>
+							<case value="1">7天内过期</case>
+							<case value="2">一月内过期</case>
+							<case value='3'>良好</case>
+						</switch>
+						</td>
+
+						<!-- <t><edit vid="{$vo.id}"  class="btn btn-primary" ><span class="glyphicon glyphicon-pencil"></span> 编辑</edit> 
+						<button   class="btn btn-danger" data-toggle="modal" data-target="#delbox{$vo.id}"><span class="glyphicon glyphicon-trash"></span> 删除</button></t> -->
+						<td>
+							<switch name='option'>
+								<case value='11'>
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case>
+								<case value="22">
+									<!-- <button class="btn btn-warning" onclick="apply_discarde('{$vo.qs_id}')" id="{$vo.id}" type="button">申请报废</button> -->
+									<!-- <button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button> -->
+								</case>
+								<!-- <case value="3">
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case> -->
+								<case value='4'>
+									<button class="btn btn-info" onclick="apply_change('{$vo.qs_id}')" id="{$vo.id}" type="button">申请更换</button>
+								</case>
+							</switch>
+							</td>
+						</tr>
+					</volist>
+
+					
+					
+				</tbody>
+			</table>
+
+		</form>
+		
+	</div>
+		<center><button class="btn btn-success" onclick="my_print()">打印</button></center>
+	<div class="pages">
+		<center>{$page}</center>								
+	</div>
+</div>
+
+		
+	
+
+</body>
+
+</html>
